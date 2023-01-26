@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import DayBox from '../components/day-box/DayBox'
 import Header from '../components/header/Header'
 
 export default function Home() {
@@ -12,6 +13,9 @@ export default function Home() {
       </Head>
       <main className="content">
         <Header />
+        <h2>Let's get started</h2>
+        <DayBox date={new Date()} />
+        <DayBox date={new Date('2022-01-27')} isSelected={true} />
       </main>
       </>
   )

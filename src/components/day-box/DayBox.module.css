@@ -1,0 +1,47 @@
+.day-container {
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  width: 175px;
+  height: 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition-property: width, height, border;
+  transition-timing-function: ease-in-out;
+  transition-duration: 300ms;
+}
+
+.day-container--selected {
+  border: 4px solid var(--primary-green);
+  width: 185px;
+  height: 185px;
+}
+
+.today {
+  margin: 0;
+  margin-top: 8px;
+  display: inline-block;
+  background-color: var(--background-green);
+  padding: 8px;
+}
+
+.weekday {
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 20px;
+}
+
+.date {
+  font-weight: bold;
+  font-size: 38px;
+  margin: 0;
+}
+
+.date-prefix {
+  font-weight: normal;
+  font-size: 14px;
+  margin-left: 2px;
+}
