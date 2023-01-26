@@ -1,5 +1,7 @@
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { ChangeEventHandler, useState } from 'react'
+import { ChangeEventHandler, useEffect, useState } from 'react'
+import { v4 as uuid } from 'uuid'
 import DayList from '../components/day-list/DayList'
 import Header from '../components/header/Header'
 import { dateToDay } from '../lib/dates'
@@ -13,9 +15,28 @@ const allHealthGoals = [
   { value: 'mental-wellbeing', label: 'Mental Wellbeing' }
 ]
 
-export default function Home() {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+  let userId = context.req.cookies.userId
+  if (!userId) {
+    userId = uuid()
+  }
+
+  return { props: { userId } }
+}
+
+interface Props {
+  userId: string
+}
+
+export const Home: React.FC<Props> = ({ userId }) => {
   const [startDate, setStartDate]= useState(dateToDay(new Date()))
   const [healthGoals, setHealthGoals] = useState<string[]>([])
+
+  useEffect(() => {
+    if (document.cookie) {
+      document.cookie = `userId=${userId}; path=/;`
+    }
+  }, [])
 
   const handleHealthGoalCheck: ChangeEventHandler<HTMLInputElement> = (event) => {
     let newHealthGoals = [...healthGoals]
@@ -104,3 +125,5 @@ export default function Home() {
       </>
   )
 }
+
+export default Home
