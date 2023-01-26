@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 :root {
   --primary-green: #00AF7D;
@@ -6,4 +6,21 @@
   --primary-yellow: #F1AE2D;
   --background-beige: #FBF6EF;
   --background-green: #D7F0E5;
+  --border-grey: #DBDBDB;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', 'sans-serif';
+}
+
+.content {
+  padding: 16px;
+  width: 100vw;
+  max-width: 600px;
+  margin: auto;
 }
