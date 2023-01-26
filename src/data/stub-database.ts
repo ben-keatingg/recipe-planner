@@ -1,15 +1,16 @@
+import JsonDb from 'simple-json-db'
 import { Plan } from "../types/plan";
 
 
 export class StubDatabase {
-  private data: Record<string, Plan> = {}
+  private data = new JsonDb('database.json')
 
   public async save(plan: Plan) {
-    this.data[plan.userId] = plan
+    this.data.set(plan.userId, plan)
   }
 
   public async get(userId: string) {
-    return this.data[userId]
+    return this.data.get(userId)
   }
 }
 

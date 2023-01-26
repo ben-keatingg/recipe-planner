@@ -1,11 +1,15 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import axios from 'axios'
 import { ChangeEventHandler, useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import DayList from '../components/day-list/DayList'
 import Header from '../components/header/Header'
+import database from '../data/stub-database'
 import { dateToDay } from '../lib/dates'
+import { Plan } from '../types/plan'
 import styles from './index.module.css'
+import { useRouter } from 'next/router'
 
 
 const allHealthGoals = [
@@ -21,16 +25,24 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     userId = uuid()
   }
 
-  return { props: { userId } }
+  const planFromServer = await database.get(userId)
+
+  return { props: { userId, planFromServer: planFromServer || null } }
 }
 
 interface Props {
   userId: string
+  planFromServer: Plan | null
 }
 
-export const Home: React.FC<Props> = ({ userId }) => {
-  const [startDate, setStartDate]= useState(dateToDay(new Date()))
-  const [healthGoals, setHealthGoals] = useState<string[]>([])
+export const Home: React.FC<Props> = ({ userId, planFromServer }) => {
+  const router = useRouter()
+  const [startDate, setStartDate]= useState(
+    planFromServer ? new Date(planFromServer.startDate) : dateToDay(new Date())
+  )
+  const [healthGoals, setHealthGoals] = useState<string[]>(
+    planFromServer ? planFromServer.healthGoals : []
+  )
 
   useEffect(() => {
     if (document.cookie) {
@@ -52,6 +64,19 @@ export const Home: React.FC<Props> = ({ userId }) => {
 
     setHealthGoals(newHealthGoals)
   }
+
+  const handleStartPlanningClick = async () => {
+    const plan: Plan = {
+      userId,
+      healthGoals,
+      plannedDays: planFromServer ? planFromServer.plannedDays : [],
+      startDate: startDate.toISOString()
+    }
+
+    await axios.post('/api/plan', plan)
+    router.push('/plan')
+  }
+
   return (
     <>
       <Head>
@@ -118,7 +143,7 @@ export const Home: React.FC<Props> = ({ userId }) => {
             </div>
           </div>
           <div className={styles['action-container']}>
-            <button className="cta-button">Start Planning</button>
+            <button onClick={handleStartPlanningClick} className="cta-button">Start Planning</button>
           </div>
 
       </main>

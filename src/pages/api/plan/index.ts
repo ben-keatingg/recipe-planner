@@ -35,7 +35,6 @@ export default function handler(
   res.status(404).send({})
 }
 
-
 export const handlePost = async (
   req: NextApiRequest,
   res: NextApiResponse<Data>
