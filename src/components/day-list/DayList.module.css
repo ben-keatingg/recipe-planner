@@ -1,0 +1,11 @@
+.container {
+  overflow-x: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+}
+
+.container > div {
+  margin-right: 8px;
+}

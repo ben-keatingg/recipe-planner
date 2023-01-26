@@ -1,0 +1,57 @@
+.day-label {
+  margin: 0;
+  font-size: 18px;
+}
+
+.health-goals-label {
+  margin: 0;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.health-goals-label span {
+  font-size: 14px;
+  display: block;
+}
+
+.health-goals {
+  display: flex;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-label {
+  background-color: var(--background-beige);
+  border: 2px solid var(--border-grey);
+  border-radius: 4px;
+  padding: 8px 16px;
+  display: block;
+  margin-bottom: 16px;
+  font-weight: bold;
+  font-size: 14px;
+  transition-property: backround-color, border-color;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+  min-height: 54px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+input[type="checkbox"]:checked + .checkbox-label {
+  border-color: var(--primary-green);
+  background-color: var(--background-green);
+}
+
+.checkbox-group-right {
+  margin-left: 16px;
+}
+
+.action-container {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}

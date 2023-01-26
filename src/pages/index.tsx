@@ -1,8 +1,36 @@
 import Head from 'next/head'
-import DayBox from '../components/day-box/DayBox'
+import { ChangeEventHandler, useState } from 'react'
+import DayList from '../components/day-list/DayList'
 import Header from '../components/header/Header'
+import { dateToDay } from '../lib/dates'
+import styles from './index.module.css'
+
+
+const allHealthGoals = [
+  { value: 'brain-health', label: 'Brain Health' },
+  { value: 'physical-recovery', label: 'Physical Recovery' },
+  { value: 'general-wellbeing', label: 'General Wellbeing' },
+  { value: 'mental-wellbeing', label: 'Mental Wellbeing' }
+]
 
 export default function Home() {
+  const [startDate, setStartDate]= useState(dateToDay(new Date()))
+  const [healthGoals, setHealthGoals] = useState<string[]>([])
+
+  const handleHealthGoalCheck: ChangeEventHandler<HTMLInputElement> = (event) => {
+    let newHealthGoals = [...healthGoals]
+    if (event.target.checked) {
+      newHealthGoals.push(event.target.value)
+    } else {
+      newHealthGoals = newHealthGoals.filter((healthGoal) => healthGoal !== event.target.value)
+    }
+
+    if (newHealthGoals.length > 2) {
+      newHealthGoals = newHealthGoals.slice(1)
+    }
+
+    setHealthGoals(newHealthGoals)
+  }
   return (
     <>
       <Head>
@@ -12,10 +40,66 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="content">
-        <Header />
-        <h2>Let's get started</h2>
-        <DayBox date={new Date()} />
-        <DayBox date={new Date('2022-01-27')} isSelected={true} />
+          <Header />
+          <h2>Let's get started</h2>
+          <p className={styles['day-label']}id="top">When do you want your week to start?</p>
+          <DayList startDate={dateToDay(new Date())} selectedDate={startDate} onClick={setStartDate} />
+          <p className={styles['health-goals-label']}>
+            What health goals would you<br/>like to prioritise?
+            <span>Select up to 2 goals</span>
+          </p>
+          <div className={styles['health-goals']}>
+            <div>
+              {allHealthGoals.slice(0,2).map((healthGoal) => {
+                return (
+                <div key={healthGoal.value} className={`${styles['checkbox-container']}`}>
+                  <input
+                    id={`health-goal-${healthGoal.value}`}
+                    name="health-goal"
+                    type="checkbox"
+                    checked={healthGoals.includes(healthGoal.value)}
+                    value={healthGoal.value}
+                    onChange={handleHealthGoalCheck}
+                    className={styles['checkbox-input']}
+                  />
+                  <label
+                    className={`${styles['checkbox-label']} ${healthGoals.includes(healthGoal.value) ? styles['checkbox-label--selected'] : ''}`}
+                    htmlFor={`health-goal-${healthGoal.value}`}
+                  >
+                    {healthGoal.label}
+                  </label>
+                </div>
+                )
+              })}
+            </div>
+            <div className={styles['checkbox-group-right']}>
+              {allHealthGoals.slice(2).map((healthGoal) => {
+                return (
+                <div key={healthGoal.value} className={`${styles['checkbox-container']}`}>
+                  <input
+                    id={`health-goal-${healthGoal.value}`}
+                    name="health-goal"
+                    type="checkbox"
+                    checked={healthGoals.includes(healthGoal.value)}
+                    value={healthGoal.value}
+                    onChange={handleHealthGoalCheck}
+                    className={styles['checkbox-input']}
+                  />
+                  <label
+                    className={`${styles['checkbox-label']} ${healthGoals.includes(healthGoal.value) ? styles['checkbox-label--selected'] : ''}`}
+                    htmlFor={`health-goal-${healthGoal.value}`}
+                  >
+                    {healthGoal.label}
+                  </label>
+                </div>
+                )
+              })}
+            </div>
+          </div>
+          <div className={styles['action-container']}>
+            <button className="cta-button">Start Planning</button>
+          </div>
+
       </main>
       </>
   )
