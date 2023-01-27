@@ -1,9 +1,8 @@
-import { readFileSync } from "fs"
-import { join } from "path"
-import { RawRecipe, Recipe } from "../types/recipe"
+import { Recipe } from "../types/recipe"
+import recipes from "./recipes"
 
 
-export default class RecipeApi {
+export class RecipeApi {
   private recipes: Recipe[] = []
 
   constructor() {
@@ -11,8 +10,7 @@ export default class RecipeApi {
   }
 
   private parseRecipes() {
-    const recipeJson = JSON.parse(readFileSync(join(__dirname, './recipes.json')).toString()) as RawRecipe[]
-    const parsedRecipes = recipeJson.map((rawRecipe) => {
+    const parsedRecipes = recipes.map((rawRecipe) => {
       return {
         ...rawRecipe,
         tags: rawRecipe.tags.split(',')
@@ -26,3 +24,7 @@ export default class RecipeApi {
     return this.recipes
   }
 }
+
+const recipeApi = new RecipeApi()
+
+export default recipeApi

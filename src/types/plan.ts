@@ -12,3 +12,5 @@ export interface Plan {
   healthGoals: string[]
   plannedDays:PlannedDay[]
 }
+
+export type Meal = 'breakfast' | 'lunch' | 'dinner'

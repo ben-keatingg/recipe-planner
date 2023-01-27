@@ -1,4 +1,4 @@
-import RecipeApi from "./stub-api"
+import { RecipeApi } from "./stub-api"
 
 describe('Stub recipe API', () => {
   

@@ -38,7 +38,8 @@ export const Home: React.FC<Props> = ({ userId, planFromServer }) => {
   )
 
   useEffect(() => {
-    if (document.cookie) {
+    if (document) {
+      console.log('cookie set', userId)
       document.cookie = `userId=${userId}; path=/;`
     }
   }, [])

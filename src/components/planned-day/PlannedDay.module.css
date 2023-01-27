@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.planner-box {
+  background-color: var(--background-beige);
+  height: 175px;
+  width: 300px;
+  margin-left: -32px;
+  padding: 8px;
+  padding-left: 48px;
+}

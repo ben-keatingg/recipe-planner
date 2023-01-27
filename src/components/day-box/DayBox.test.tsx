@@ -30,4 +30,10 @@ describe('DayBox', () => {
     const res = container.querySelector('.day-container--selected')
     expect(res).toBeTruthy()
   })
+
+  it('applies smaller class when smaller = true', async () => {
+    const {container} = render(<DayBox date={new Date()} smaller={true} />)
+    const res = container.querySelector('.day-container--smaller')
+    expect(res).toBeTruthy()
+  })
 })

@@ -1,12 +1,12 @@
 export interface RawRecipe {
-  id: number
+  id: string
   name: string
   url: string
   tags: string
 }
 
 export interface Recipe {
-  id: number
+  id: string
   name: string
   url: string
   tags: string[]

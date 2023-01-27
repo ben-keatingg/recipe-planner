@@ -1,0 +1,17 @@
+.meal-container {
+  margin-bottom: 6px;
+}
+
+.meal-title {
+  font-size: 14px;
+}
+
+.select-meal {
+  display: block;
+  border: 2px solid var(--border-grey);
+  width: 170px;
+  text-align: left;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+}

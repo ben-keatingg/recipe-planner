@@ -15,6 +15,10 @@
   margin: 0;
 }
 
+.header-title--smaller {
+  font-size: 40px;
+}
+
 .header-text {
   margin: 0;
 }
