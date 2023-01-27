@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Plan } from '../../../types/plan'
 import z, { ZodError } from 'zod'
 import database from '../../../data/stub-database'
+import { generatePlannedDays } from '../../../lib/dates'
 
 const plannedDaySchema = z.object({
   id: z.string().uuid(),
@@ -45,7 +46,18 @@ export const handlePost = async (
     return
   }
 
-  await database.save(req.body)
+  const plan = req.body as Plan
+  if (!plan.plannedDays.length) {
+    plan.plannedDays = generatePlannedDays(plan.startDate)
+  }
 
-  res.send(req.body)
+  const existingPlan = await database.get(plan.userId)
+  
+  if (existingPlan?.startDate !== plan.startDate) {
+    plan.plannedDays = [...generatePlannedDays(plan.startDate)]
+  }
+
+  await database.save(plan)
+
+  res.send({ plan })
 }

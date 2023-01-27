@@ -1,4 +1,6 @@
 import addDays from 'date-fns/addDays'
+import { v4 as uuid } from 'uuid'
+import { PlannedDay } from '../types/plan'
 
 export const getWeekdayString = (input: number) => {
   switch (input) {
@@ -78,4 +80,18 @@ export const generateDays = (startDate: Date) => {
 
 export const dateToDay = (date: Date) => {
   return new Date(date.toISOString().slice(0,10))
+}
+
+export const generatePlannedDays = (startDate: string) => {
+  const sevenArray = new Array(7).fill(0)
+  const plannedDays: PlannedDay[] = sevenArray.map((_item, index) => {
+    const date = addDays(new Date(startDate), index).toISOString()
+    console.log({ msg: 'generating day',date, index})
+    return {
+      id: uuid(),
+      date,
+    }
+  })
+
+  return plannedDays
 }

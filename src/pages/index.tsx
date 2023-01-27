@@ -2,14 +2,13 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
 import { ChangeEventHandler, useEffect, useState } from 'react'
-import { v4 as uuid } from 'uuid'
 import DayList from '../components/day-list/DayList'
 import Header from '../components/header/Header'
-import database from '../data/stub-database'
 import { dateToDay } from '../lib/dates'
 import { Plan } from '../types/plan'
 import styles from './index.module.css'
 import { useRouter } from 'next/router'
+import getPlanFromServer from '../lib/get-plan-from-server'
 
 
 const allHealthGoals = [
@@ -21,13 +20,7 @@ const allHealthGoals = [
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   let userId = context.req.cookies.userId
-  if (!userId) {
-    userId = uuid()
-  }
-
-  const planFromServer = await database.get(userId)
-
-  return { props: { userId, planFromServer: planFromServer || null } }
+  return getPlanFromServer(userId)
 }
 
 interface Props {

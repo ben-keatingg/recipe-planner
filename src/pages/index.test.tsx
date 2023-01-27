@@ -42,7 +42,7 @@ describe('Home Page', () => {
     const expectedPlan = {
       "healthGoals": ["brain-health", "mental-wellbeing"],
       "plannedDays": [],
-      "startDate": "2023-01-29T00:00:00.000Z",
+      "startDate": dateToDay(dateToSelect).toISOString(),
        "userId": userId
     }
     await waitFor(() => {
