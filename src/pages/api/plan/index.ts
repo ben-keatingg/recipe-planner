@@ -8,9 +8,9 @@ import { generatePlannedDays } from '../../../lib/dates'
 const plannedDaySchema = z.object({
   id: z.string().uuid(),
   date: z.string(),
-  breakfast: z.number().optional(),
-  lunch: z.number().optional(),
-  dinner: z.number().optional(),
+  breakfast: z.string().optional(),
+  lunch: z.string().optional(),
+  dinner: z.string().optional(),
 })
 
 const planSchema = z.object({

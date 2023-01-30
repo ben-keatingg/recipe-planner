@@ -1,3 +1,4 @@
+import axios from "axios"
 import { GetServerSideProps } from "next"
 import { Fragment, useState } from "react"
 import DayBox from "../components/day-box/DayBox"
@@ -10,6 +11,7 @@ import { uppercase } from "../lib"
 import getPlanFromServer from "../lib/get-plan-from-server"
 import { Meal, Plan } from "../types/plan"
 import { Recipe } from "../types/recipe"
+import styles from './plan.module.css'
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   let userId = context.req.cookies.userId
@@ -44,7 +46,7 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
     return recipes.filter((recipe) => recipe.tags.includes(meal))
   }
 
-  const handleRecipeSelected = (recipe: Recipe) => {
+  const handleRecipeSelected =  async(recipe: Recipe) => {
     const newPlan: Plan = {
       ...plan,
       plannedDays: plan.plannedDays.map((plannedDay) => {
@@ -58,7 +60,8 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
         }
       })
     }
-    
+   
+    await axios.post('/api/plan', plan)
     setPlan(newPlan)
     setSelectedDay(undefined)
   }
@@ -85,6 +88,10 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
             </Fragment>
           )}
         </Modal>
+        <div className={styles['cta-container']}>
+          <button className="cta-button" onClick={() => alert('This hasn\'t been impemented yet')}>Plan for me</button>
+          <button className={styles['save-later-button']}>Save for later</button>
+        </div>
       </main>
     </Fragment>
   )

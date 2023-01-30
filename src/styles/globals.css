@@ -40,6 +40,10 @@ body {
   cursor: pointer;
 }
 
+.cta-button:disabled {
+  opacity: 0.7;
+}
+
 @media (min-width: 600px) {
   html,body {
     background-color: var(--background-beige);
