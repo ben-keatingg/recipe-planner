@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { v4 as uuid } from 'uuid'
-import { handlePost } from "."
-import database from "../../../data/stub-database"
-import { generateDays, generatePlannedDays } from "../../../lib/dates"
-import { Plan } from "../../../types/plan"
+import { handlePost } from "../pages/api/plan"
+import database from "../data/stub-database"
+import { generateDays, generatePlannedDays } from "../lib/dates"
+import { Plan } from "../types/plan"
 
 describe('POST /plan', () => {
   it('returns 400 if body is not valid', async () => {

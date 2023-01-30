@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { v4 as uuid } from 'uuid'
-import database from "../../../data/stub-database"
-import { Plan } from "../../../types/plan"
-import { handleGet } from "./[userId]"
+import database from "../data/stub-database"
+import { Plan } from "../types/plan"
+import { handleGet } from "../pages/api/plan/[userId]"
 
 describe('GET /plan/:userId', () => {
   it('returns 404 if plan not found', async () => {

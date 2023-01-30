@@ -1,8 +1,9 @@
+import React from 'react'
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import axios from "axios"
 import { addDays } from "date-fns"
 import { v4 as uuid } from 'uuid'
-import Home from "."
+import Home from "../pages"
 import { dateToDay } from "../lib/dates"
 
 const mockPush = jest.fn()
