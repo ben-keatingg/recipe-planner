@@ -58,7 +58,25 @@ const recipes = [
    "name": "Mushroom Bourguignon",
    "url": "https://thedoctorskitchen.com/recipes/mushroom-bourguignon/",
    "tags": "dinner,vegan,brain-health"
- }
+ },
+ {
+  "id": "11",
+  "name": "Tarragon Mushrooms on Toast",
+  "url": "https://thedoctorskitchen.com/recipes/tarragon-mushrooms-on-toast/",
+  "tags": "breakfast,vegetarian,brain-health"
+},
+{
+  "id": "12",
+  "name": "Overnight Orange Apple and Ginger Oats",
+  "url": "https://thedoctorskitchen.com/recipes/overnight-orange-apple-and-ginger-oats-draft/",
+  "tags": "breakfast,vegetarian,physical-recovery"
+},
+{
+  "id": "13",
+  "name": "Sweet Potato Rosti with Poached Eggs",
+  "url": "https://thedoctorskitchen.com/recipes/sweet-potato-rostis-with-poached-eggs/",
+  "tags": "breakfast,vegetarian,general-wellbeing"
+}
 ]
 
 
