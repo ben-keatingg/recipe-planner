@@ -19,8 +19,15 @@ const allHealthGoals = [
 ]
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-  let userId = context.req.cookies.userId
-  return getPlanFromServer(userId)
+  let userIdInCookie = context.req.cookies.userId
+  const { planFromServer, userId }  = await getPlanFromServer(userIdInCookie)
+
+  return {
+    props: {
+      userId,
+      planFromServer
+    }
+  }
 }
 
 interface Props {

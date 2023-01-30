@@ -5,12 +5,9 @@ const getPlanFromServer = async (userId?: string) => {
   if (!userId) {
     userId = uuid()
   }
-
   const planFromServer = await database.get(userId)
 
-  console.log('got plan from server', JSON.stringify(planFromServer, null, 2))
-
-  return { props: { userId, planFromServer: planFromServer || null } }  
+  return { userId, planFromServer }
 }
 
 export default getPlanFromServer

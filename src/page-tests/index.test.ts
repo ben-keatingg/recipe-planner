@@ -45,7 +45,7 @@ describe('POST /plan', () => {
     expect(mockRes.send).toHaveBeenCalled()
 
     const planInDb = await database.get(plan.userId)
-    expect(planInDb.plannedDays.length).toBe(7)
+    expect(planInDb?.plannedDays.length).toBe(7)
   })
 
   it('re-generates planned days if startDate changes', async () => {
@@ -71,8 +71,7 @@ describe('POST /plan', () => {
     expect(mockRes.send).toHaveBeenCalled()
 
     const planInDb = await database.get(plan.userId)
-    console.log(JSON.stringify(planInDb))
-    expect(planInDb.plannedDays[0].date).toBe(plan.startDate)
+    expect(planInDb?.plannedDays[0].date).toBe(plan.startDate)
     
   })
 })

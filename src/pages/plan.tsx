@@ -14,15 +14,24 @@ import { Recipe } from "../types/recipe"
 import styles from './plan.module.css'
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-  let userId = context.req.cookies.userId
+  let userIdInCookie = context.req.cookies.userId
 
   const recipes = await recipeApi.listRecipes()
   // TODO: redirect if no plan
-  const {props} = await getPlanFromServer(userId)
+  const {planFromServer, userId} = await getPlanFromServer(userIdInCookie)
 
+  if (!planFromServer) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
   return {
     props: {
-      ...props,
+      userId,
+      planFromServer,
       recipes
     }
   }
@@ -61,7 +70,7 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
       })
     }
    
-    await axios.post('/api/plan', plan)
+    await axios.post('/api/plan', newPlan)
     setPlan(newPlan)
     setSelectedDay(undefined)
   }
@@ -90,7 +99,6 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
         </Modal>
         <div className={styles['cta-container']}>
           <button className="cta-button" onClick={() => alert('This hasn\'t been impemented yet')}>Plan for me</button>
-          <button className={styles['save-later-button']}>Save for later</button>
         </div>
       </main>
     </Fragment>
