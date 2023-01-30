@@ -1,6 +1,7 @@
 import axios from "axios"
 import { GetServerSideProps } from "next"
 import { Fragment, useState } from "react"
+import AppHead from "../components/app-head/AppHead"
 import DayBox from "../components/day-box/DayBox"
 import Header from "../components/header/Header"
 import Modal from "../components/modal/Modal"
@@ -77,7 +78,7 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
 
   return (
     <Fragment>
-      {/* TODO: HEAD */}
+      <AppHead />
       <main className="content">
         <Header hideSubHeader={true} />
         <div>
