@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import PlausibleProvider from 'next-plausible'
+import PlausibleProvider, { usePlausible } from 'next-plausible'
 import axios from 'axios'
 import { ChangeEventHandler, useEffect, useState } from 'react'
 import DayList from '../components/day-list/DayList'
@@ -37,6 +37,7 @@ interface Props {
 }
 
 export const Home: React.FC<Props> = ({ userId, planFromServer }) => {
+  const plausible = usePlausible()
   const router = useRouter()
   const [startDate, setStartDate]= useState(
     planFromServer ? new Date(planFromServer.startDate) : dateToDay(new Date())
@@ -76,6 +77,7 @@ export const Home: React.FC<Props> = ({ userId, planFromServer }) => {
     }
 
     await axios.post('/api/plan', plan)
+    plausible('planningStarted')
     router.push('/plan')
   }
 

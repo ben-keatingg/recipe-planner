@@ -1,5 +1,5 @@
 import axios from "axios"
-import PlausibleProvider from 'next-plausible'
+import PlausibleProvider, { usePlausible } from 'next-plausible'
 import { GetServerSideProps } from "next"
 import { Fragment, useState } from "react"
 import AppHead from "../components/app-head/AppHead"
@@ -45,6 +45,7 @@ interface Props {
 }
 
 const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
+  const plausible = usePlausible()
   const [plan, setPlan] = useState(planFromServer)
   const [selectedDay, setSelectedDay] = useState<{ plannedDay: PlannedDay, meal: Meal} | undefined>()
   
@@ -57,9 +58,14 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
   }
 
   const handleRecipeSelected =  async(recipe: Recipe) => {
+    let hasPlannedAllMeals = true
     const newPlan: Plan = {
       ...plan,
       plannedDays: plan.plannedDays.map((plannedDay) => {
+        if (!plannedDay.breakfast || !plannedDay.lunch || !plannedDay.dinner) {
+          hasPlannedAllMeals = false
+        }
+
         if (plannedDay.date !== selectedDay?.plannedDay.date) {
           return plannedDay
         }
@@ -72,6 +78,12 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
     }
    
     await axios.post('/api/plan', newPlan)
+
+    plausible('mealPlanned')
+    if (hasPlannedAllMeals) {
+      plausible('fullWeekPlanned')
+    }
+
     setPlan(newPlan)
     setSelectedDay(undefined)
   }
