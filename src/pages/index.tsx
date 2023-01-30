@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
+import PlausibleProvider from 'next-plausible'
 import axios from 'axios'
 import { ChangeEventHandler, useEffect, useState } from 'react'
 import DayList from '../components/day-list/DayList'
@@ -83,6 +83,7 @@ export const Home: React.FC<Props> = ({ userId, planFromServer }) => {
     <>
       <AppHead />
       <main className="content">
+        <PlausibleProvider trackLocalhost={true} domain="recipe-planner.vercel.app">
           <Header />
           <h2>Let's get started</h2>
           <p className={styles['day-label']}id="top">When do you want your week to start?</p>
@@ -142,7 +143,7 @@ export const Home: React.FC<Props> = ({ userId, planFromServer }) => {
           <div className={styles['action-container']}>
             <button onClick={handleStartPlanningClick} className="cta-button">Start Planning</button>
           </div>
-
+          </PlausibleProvider>
       </main>
       </>
   )

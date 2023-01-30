@@ -1,4 +1,5 @@
 import axios from "axios"
+import PlausibleProvider from 'next-plausible'
 import { GetServerSideProps } from "next"
 import { Fragment, useState } from "react"
 import AppHead from "../components/app-head/AppHead"
@@ -18,7 +19,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   let userIdInCookie = context.req.cookies.userId
 
   const recipes = await recipeApi.listRecipes()
-  // TODO: redirect if no plan
   const {planFromServer, userId} = await getPlanFromServer(userIdInCookie)
 
   if (!planFromServer) {
@@ -77,7 +77,7 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
   }
 
   return (
-    <Fragment>
+    <PlausibleProvider trackLocalhost={true} domain="recipe-planner.vercel.app">
       <AppHead />
       <main className="content">
         <Header hideSubHeader={true} />
@@ -102,7 +102,7 @@ const PlanPage: React.FC<Props> = ({ planFromServer, recipes }) => {
           <button className="cta-button" onClick={() => alert('This hasn\'t been impemented yet')}>Plan for me</button>
         </div>
       </main>
-    </Fragment>
+      </PlausibleProvider>
   )
 }
 

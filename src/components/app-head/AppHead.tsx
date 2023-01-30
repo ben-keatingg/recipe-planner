@@ -6,7 +6,7 @@ const AppHead: React.FC<Props> = () => {
 
   return (
     <Head>
-	    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+	    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
 	<title>Improve your health using food &mdash; The Doctors Kitchen</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
