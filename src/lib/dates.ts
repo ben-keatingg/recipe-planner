@@ -31,6 +31,8 @@ export const getMonthSuffix = (input: number) => {
       return 'nd'
     case 3:
       return 'rd'
+    case 31:
+      return 'st'
     default:
       return 'th'
   }

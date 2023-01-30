@@ -1,0 +1,35 @@
+.recipe-item {
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+.recipe-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe-link {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+
+.recipe-add-button {
+  background-color: var(--background-green);
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.recipe-tag-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recipe-tag {
+  padding: 4px;
+  margin: 4px;
+  background-color: var(--background-green);
+  border-radius: 4px;
+  font-size: 12px;
+}

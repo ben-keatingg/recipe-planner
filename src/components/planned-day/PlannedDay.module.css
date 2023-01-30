@@ -7,7 +7,7 @@
 
 .planner-box {
   background-color: var(--background-beige);
-  height: 175px;
+  min-height: 175px;
   width: 300px;
   margin-left: -32px;
   padding: 8px;

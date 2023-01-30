@@ -1,3 +1,4 @@
+import { uppercase } from "../../lib"
 import { Meal, PlannedDay } from "../../types/plan"
 import styles from './PlanMeal.module.css'
 
@@ -6,9 +7,6 @@ interface Props {
   recipeName?: string
   meal: Meal
   onClick: (plannedDay: PlannedDay, meal: Meal) => void
-}
-const uppercase = (input: string) => {
-  return `${input.charAt(0).toUpperCase()}${input.slice(1)}`
 }
 
 const PlanMeal: React.FC<Props> = ({ plannedDay, recipeName, meal, onClick }) => {
